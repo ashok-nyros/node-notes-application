@@ -1,0 +1,53 @@
+h1 {
+    color: grey;
+}
+
+.footer p {
+    padding-top: 10px;
+    text-align: center;
+    color: #fff
+}
+
+.list-group-item {
+    width: 400px
+}
+
+.footer {
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+    right: 0;
+    position: fixed;
+    font-family: "Roboto", sans-serif;
+    background-color: black;
+}
+
+.li active {
+    background-color: peachpuff;
+}
+
+.navbar-brand {
+    margin-left: 200px;
+}
+
+.nav-item active {
+    background-color: black;
+}
+
+.no-notes {
+    padding: 25px;
+    text-align: center;
+}
+
+.about {
+    font-family: "Roboto", sans-serif;
+}
+
+.about h3 {
+    padding: 30px;
+}
+
+.error-page {
+    font-family: "Roboto", sans-serif;
+    padding: 50px;
+}

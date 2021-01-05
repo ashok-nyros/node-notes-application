@@ -1,0 +1,99 @@
+{{>header}}
+
+<body>
+    {{!-- <div class="container"> --}}
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+        <a class="navbar-brand" href="#">{{this.title}}</a>
+        <ul class="navbar-nav ml-auto" style="margin-right: 200px;">
+            <li class="nav-item active">
+                <a class="nav-link" href="/" style="color: aliceblue;">HOME</a>
+            </li>
+            <li class="nav-item">
+
+                <a class="nav-link" href="/about" >ABOUT</a>
+
+            </li>
+        </ul>
+
+    </nav>
+    <div class="container">
+        {{!-- <div class="notes-main"> --}}
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-2 offset-md-3">
+                <button class="btn btn-primary" id="new">New Note
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-6 offset-md-3">
+                <div id="accordion">
+                     {{#if allNotes}}
+                    {{#each allNotes}}
+                    <div class="card" id="card">
+                        <div class="card-header">
+                            <a class="card-link" data-toggle="collapse" data-parent="#accordion"
+                                href="#collapse_{{this.id}}">
+                                {{this.title}}
+                            </a>
+                            <div class="btns" style="float: right;">
+                                {{!-- <i class="fa fa-pencil-square"></i>
+                                &nbsp;&nbsp; --}}
+                                <i class="fa fa-trash" style="cursor: pointer;"></i>
+                            </div>
+                        </div>
+                        <div id="collapse_{{this.id}}" class="collapse">
+                            <div class="card-body">
+                                {{this.body}}
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <div class="no-notes">
+                        <p>No Notes Available.</p>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        {{!-- </div> --}}
+    </div>
+    
+
+    {{!-- </div> --}}
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Note</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="notetitle">Note Title:</label>
+                        <input type="text" class="form-control" id="notetitle" aria-describedby="emailHelp"
+                            placeholder="Enter note title">
+                    </div>
+                    <div class="form-group">
+                        <label for="notedescription">Note Description:</label>
+                        <textarea class="form-control" rows="5" id="notedescription"
+                            placeholder="Enter note description"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="saveNote" class="btn btn-primary">Save Note</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+{{>footer}}
+
+</html>

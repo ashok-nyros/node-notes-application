@@ -10,6 +10,8 @@
     "license": "ISC",
     "dependencies": {
         "express": "^4.17.1",
-        "hbs": "^4.1.1"
+        "hbs": "^4.1.1",
+        "chalk": "^4.1.0",
+        "yargs": "^16.2.0"
     }
 }

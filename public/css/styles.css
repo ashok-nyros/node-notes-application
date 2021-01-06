@@ -51,3 +51,9 @@ h1 {
     font-family: "Roboto", sans-serif;
     padding: 50px;
 }
+
+.toast {
+    right: 0;
+    top: 10px;
+    position: fixed;
+}

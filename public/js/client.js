@@ -1,43 +1,22 @@
 console.log("Client side javascript file is loaded");
 window.onload = function() {
-    listNotes();
+    console.log("loaded")
 };
-
-function listNotes() {
-    console.log('list called')
-    fetch(`/get`).then((res) => {
-        console.log(res)
-        res.json().then((data) => {
-            if (data.error) {
-                console.log("error is" + data.error);
-                alert(data.error);
-                return false;
-            } else {
-                console.log(data);
-                this.allNotes = data;
-                console.log(allNotes)
-            }
-        });
-    });
-}
 
 const newbtn = document.getElementById("new");
 newbtn.addEventListener("click", openNote);
-
 const noteTitle = document.getElementById("notetitle");
 const noteDescription = document.getElementById("notedescription");
 const saveNotebtn = document.getElementById("saveNote");
 saveNotebtn.addEventListener("click", saveNote)
 let accordion = document.getElementById("accordion");
-// ul.addEventListener("click", deleteNote);
 accordion.addEventListener("click", deleteNote);
-// var noteContent = "";
-
+//To open note modal
 function openNote() {
     console.log('clicked')
     $('#exampleModal').modal('show');
 }
-
+//To save new Note
 function saveNote(e) {
     e.preventDefault();
     if (!noteTitle.value) {
@@ -59,6 +38,7 @@ function saveNote(e) {
                         alert(data.error);
                         return false;
                     } else {
+                        showNotification("Notes Adding Update", "Note Added Successfully!")
                         console.log(data);
                         createList(data);
                     }
@@ -71,7 +51,7 @@ function saveNote(e) {
     }
 }
 
-
+//To create notes  list
 function createList(data) {
     let noteContent = "";
     data.forEach(note => {
@@ -94,28 +74,46 @@ function createList(data) {
 
 }
 
+//To delete note
 function deleteNote(e) {
     if (e.target.classList.contains('fa-trash')) {
         console.log(e.target.offsetParent.children[0].children[0].innerText);
         removeNoteTitle = e.target.offsetParent.children[0].children[0].innerText;
-        fetch(`/removenote?title=${removeNoteTitle}`).then(
-            (res) => {
-                console.log(typeof(res))
-                    // console.log(res.json());
-                res.json().then((data) => {
-                    console.log(data);
-                    if (data.length > 0) {
-                        createList(data);
-                    }
-                    if (data.length === 0) {
-                        console.log("it is empty");
-                        accordion.innerHTML =
-                            ` <div class="no-notes">
+        fetch(`/removenote?title=${removeNoteTitle}`).then((res) => {
+            console.log(typeof(res))
+            res.json().then((data) => {
+                showNotification("Notes Deleting update", "Notes Deleted Successfully!")
+                console.log(data);
+                if (data.length > 0) {
+                    createList(data);
+                }
+                if (data.length === 0) {
+                    console.log("it is empty");
+                    accordion.innerHTML =
+                        ` <div class="no-notes">
                                 <p>No Notes Available.</p>
                               </div>`
-                    }
+                }
 
-                });
             });
+        });
     }
+}
+
+//To show Notification
+function showNotification(message, type) {
+    let toast = document.getElementById('toast');
+    let toastContent = '<div class="toast-header">' +
+        message +
+        '</div>' +
+        ' <div class="toast-body">' +
+        type +
+        '</div>'
+    toast.innerHTML = toastContent;
+    $('.toast').toast({
+        animation: false,
+        delay: 5000
+    });
+    $('.toast').toast('show');
+
 }

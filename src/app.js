@@ -3,12 +3,10 @@ const express = require('express');
 const hbs = require('hbs');
 const notes = require("./notes");
 
-
 const app = express();
 const port = process.env.PORT || 3000
 
 let allNotes = [];
-
 //define paths for express config
 const publicDirectoryPath = path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
@@ -23,13 +21,13 @@ hbs.registerPartials(partialsPath)
 app.use(express.static(publicDirectoryPath))
 console.log(notes.loadNotes())
 app.get('', (req, res) => {
-    res.render('index', {
-        title: 'Notes App',
-        name: 'Ashok',
-        allNotes: notes.loadNotes(),
+        res.render('index', {
+            title: 'Notes App',
+            name: 'Ashok',
+            allNotes: notes.loadNotes(),
+        })
     })
-})
-
+    //Route to add new note
 app.get("/addnote", (req, res) => {
     if (!req.query.title) {
         return res.send({
@@ -55,7 +53,7 @@ app.get("/addnote", (req, res) => {
         });
     }
 });
-
+//Route to get all notes
 app.get("/get", (req, res) => {
     allNotes = notes.loadNotes();
     return res.send((JSON.stringify(allNotes)));
@@ -80,21 +78,20 @@ app.get("/removenote", (req, res) => {
         });
     }
 });
-
+//Route to load about page
 app.get("/about", (req, res) => {
     res.render("about", {
         title: "About",
         createdBy: "Ashok",
     });
 });
-
+//Route to load 404 error pages
 app.get("*", (req, res) => {
     res.render("404", {
         title: "About",
         createdBy: "Ashok",
     });
 })
-
 
 app.listen(port, () => {
     console.log('server is up on port 3000.')

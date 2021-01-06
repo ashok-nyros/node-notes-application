@@ -155,7 +155,7 @@ function showNotification(message, type) {
     $('.toast').toast('show');
 
 }
-
+// To Limit Note title
 function limitTitle(e) {
     bodylimit.innerText = "";
     let maxCharacters = 25;
@@ -164,7 +164,7 @@ function limitTitle(e) {
         titlelimit.innerText = (maxCharacters - (e.target.value.length)) + " characters left"
     }
 }
-
+// To limit note body
 function limitBody(e) {
     titlelimit.innerText = "";
     let maxCharacters = 250;

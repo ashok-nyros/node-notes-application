@@ -30,7 +30,7 @@
                     {{#each allNotes}}
                     <div class="card" id="card">
                         <div class="card-header">
-                            <a class="card-link" data-toggle="collapse" data-parent="#accordion"
+                            <a class="card-link" data-toggle="collapse" 
                                 href="#collapse_{{this.id}}">
                                 {{this.title}}
                             </a>
@@ -38,7 +38,7 @@
                                 <i class="fa fa-trash" style="cursor: pointer;"></i>
                             </div>
                         </div>
-                        <div id="collapse_{{this.id}}" class="collapse">
+                        <div id="collapse_{{this.id}}" class="collapse" data-parent="#accordion">
                             <div class="card-body">
                                 {{this.body}}
                             </div>
@@ -71,13 +71,16 @@
                     <div class="form-group">
                         <label for="notetitle">Note Title:</label>
                         <input type="text" class="form-control" id="notetitle" aria-describedby="emailHelp"
-                            placeholder="Enter note title">
+                            placeholder="Enter note title" maxlength="25">
+                            <span id="title-limit"></span>
                     </div>
                     <div class="form-group">
                         <label for="notedescription">Note Description:</label>
-                        <textarea class="form-control" rows="5" id="notedescription"
+                        <textarea class="form-control" rows="5" maxlength="250" id="notedescription"
                             placeholder="Enter note description"></textarea>
+                             <span id="body-limit"></span>
                     </div>
+                    <span id="no-text-error"></span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

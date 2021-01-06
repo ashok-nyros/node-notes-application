@@ -9,8 +9,11 @@ const noteTitle = document.getElementById("notetitle");
 const noteDescription = document.getElementById("notedescription");
 const saveNotebtn = document.getElementById("saveNote");
 saveNotebtn.addEventListener("click", saveNote)
+const deleteNotebtn = document.getElementById("deleteNote");
+deleteNotebtn.addEventListener("click", onDeleteNote);
 let accordion = document.getElementById("accordion");
 accordion.addEventListener("click", deleteNote);
+var removeNoteTitle = "";
 //To open note modal
 function openNote() {
     console.log('clicked')
@@ -74,31 +77,35 @@ function createList(data) {
 
 }
 
-//To delete note
+//To open delete note alert
 function deleteNote(e) {
     if (e.target.classList.contains('fa-trash')) {
         console.log(e.target.offsetParent.children[0].children[0].innerText);
         removeNoteTitle = e.target.offsetParent.children[0].children[0].innerText;
-        fetch(`/removenote?title=${removeNoteTitle}`).then((res) => {
-            console.log(typeof(res))
-            res.json().then((data) => {
-                showNotification("Notes Deleting update", "Notes Deleted Successfully!")
-                console.log(data);
-                if (data.length > 0) {
-                    createList(data);
-                }
-                if (data.length === 0) {
-                    console.log("it is empty");
-                    accordion.innerHTML =
-                        ` <div class="no-notes">
-                                <p>No Notes Available.</p>
-                              </div>`
-                }
-
-            });
-        });
+        $('#deleteNoteModal').modal('show');
     }
-}
+};
+//To Delete Note
+function onDeleteNote() {
+    fetch(`/removenote?title=${removeNoteTitle}`).then((res) => {
+        console.log(typeof(res))
+        res.json().then((data) => {
+            showNotification("Notes Deleting update", "Notes Deleted Successfully!")
+            console.log(data);
+            if (data.length > 0) {
+                createList(data);
+            }
+            if (data.length === 0) {
+                console.log("it is empty");
+                accordion.innerHTML =
+                    ` <div class="no-notes">
+                            <p>No Notes Available.</p>
+                      </div>`
+            }
+
+        });
+    });
+};
 
 //To show Notification
 function showNotification(message, type) {

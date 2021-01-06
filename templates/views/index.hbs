@@ -9,11 +9,11 @@
                 <a class="nav-link" href="/" style="color: aliceblue;">HOME</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/about" >ABOUT</a>
+                <a class="nav-link" href="/about">ABOUT</a>
             </li>
         </ul>
     </nav>
-    
+
     {{!-- Notes block using cards --}}
     <div class="container">
         <div class="row" style="margin-top: 10px;">
@@ -26,7 +26,7 @@
         <div class="row" style="margin-top: 10px;">
             <div class="col-md-6 offset-md-3">
                 <div id="accordion">
-                     {{#if allNotes}}
+                    {{#if allNotes}}
                     {{#each allNotes}}
                     <div class="card" id="card">
                         <div class="card-header">
@@ -87,6 +87,33 @@
         </div>
     </div>
 
+    {{!-- Delete Alert Modal --}}
+    <div class="modal fade" id="deleteNoteModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Note Alert</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                   Do you want to delete the note?
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="deleteNote">Yes</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </body>
 {{>footer}}
+
 </html>

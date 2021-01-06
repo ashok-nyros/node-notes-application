@@ -2,7 +2,7 @@ console.log("Client side javascript file is loaded");
 window.onload = function() {
     console.log("loaded")
 };
-
+//getting inputs
 const newbtn = document.getElementById("new");
 newbtn.addEventListener("click", openNote);
 const noteTitle = document.getElementById("notetitle");
@@ -38,15 +38,25 @@ function saveNote(e) {
         notexterror.innerText = "Enter Note title to continue"
         notetitle.focus();
         return false;
+    } else if (noteTitle.value.includes('#') || noteTitle.value.includes('&')) {
+        // alert("enter note title");
+        notexterror.innerText = "Note Title should not contain # or &"
+        notetitle.focus();
+        return false;
     } else if (!noteDescription.value) {
         // alert("enter some note description please");
         notexterror.innerText = "Enter Note description to continue"
         notedescription.focus();
         return false;
+    } else if (noteDescription.value.includes('#') || noteDescription.value.includes('&')) {
+        // alert("enter some note description please");
+        notexterror.innerText = "Note Description should not contain # or &"
+        notedescription.focus();
+        return false;
     } else {
-        // let id = noteTitle.value.split(" ").join("");
+        const noteTitleValue = noteTitle.value.trim();
         let id = noteTitle.value.replace(/\W/g, '_');
-        fetch(`/addnote?title=${noteTitle.value}&body=${noteDescription.value}&noteID=${id}`).then(
+        fetch(`/addnote?title=${noteTitleValue}&body=${noteDescription.value}&noteID=${id}`).then(
             (res) => {
                 console.log(res);
                 res.json().then((data) => {
@@ -58,13 +68,13 @@ function saveNote(e) {
                         showNotification("Notes Adding Update", "Note Added Successfully!")
                         console.log(data);
                         createList(data);
+                        notetitle.value = "";
+                        notedescription.value = "";
+                        $('#exampleModal').modal('hide');
                     }
                 });
             }
         );
-        notetitle.value = "";
-        notedescription.value = "";
-        $('#exampleModal').modal('hide');
     }
 }
 
@@ -96,6 +106,7 @@ function deleteNote(e) {
     if (e.target.classList.contains('fa-trash')) {
         console.log(e.target.offsetParent.children[0].children[0].innerText);
         removeNoteTitle = e.target.offsetParent.children[0].children[0].innerText;
+        console.log(removeNoteTitle)
         $('#deleteNoteModal').modal('show');
     }
 };
